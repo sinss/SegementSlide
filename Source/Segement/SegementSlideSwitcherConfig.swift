@@ -27,8 +27,12 @@ public struct SegementSlideSwitcherConfig {
     public var badgeHeightForCustomType: CGFloat
     public var badgeFontForCountType: UIFont
     
+    //新增的style
+    public var normalBackgroundColor: UIColor
+    public var selectedBackgroundColor: UIColor
+    
     public init(type: SwitcherType = .segement,
-                horizontalMargin: CGFloat = 16,
+                horizontalMargin: CGFloat = 8,
                 horizontalSpace: CGFloat = 32,
                 normalTitleFont: UIFont = UIFont.systemFont(ofSize: 15),
                 selectedTitleFont: UIFont = UIFont.systemFont(ofSize: 15, weight: .medium),
@@ -40,7 +44,9 @@ public struct SegementSlideSwitcherConfig {
                 badgeHeightForPointType: CGFloat = 9,
                 badgeHeightForCountType: CGFloat = 15,
                 badgeHeightForCustomType: CGFloat = 14,
-                badgeFontForCountType: UIFont = UIFont.systemFont(ofSize: 10, weight: .regular)) {
+                badgeFontForCountType: UIFont = UIFont.systemFont(ofSize: 10, weight: .regular),
+                normalBackgroundColor: UIColor = .clear,
+                selectedBackgroundColor: UIColor = .clear) {
         self.type = type
         self.horizontalMargin = horizontalMargin
         self.horizontalSpace = horizontalSpace
@@ -55,6 +61,8 @@ public struct SegementSlideSwitcherConfig {
         self.badgeHeightForCountType = badgeHeightForCountType
         self.badgeHeightForCustomType = badgeHeightForCustomType
         self.badgeFontForCountType = badgeFontForCountType
+        self.normalBackgroundColor = normalBackgroundColor
+        self.selectedBackgroundColor = selectedBackgroundColor
     }
     
 }

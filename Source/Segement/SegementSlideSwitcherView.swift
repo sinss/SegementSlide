@@ -60,7 +60,7 @@ public class SegementSlideSwitcherView: UIView {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.backgroundColor = .clear
-        backgroundColor = .white
+        backgroundColor = .clear
     }
     
     public override func layoutSubviews() {
@@ -92,9 +92,10 @@ public class SegementSlideSwitcherView: UIView {
             let button = UIButton(type: .custom)
             button.clipsToBounds = false
             button.titleLabel?.font = innerConfig.normalTitleFont
-            button.backgroundColor = .clear
+            button.backgroundColor = innerConfig.normalBackgroundColor
             button.setTitle(title, for: .normal)
             button.tag = index
+            button.layer.cornerRadius = 5
             button.setTitleColor(innerConfig.normalTitleColor, for: .normal)
             button.addTarget(self, action: #selector(didClickTitleButton), for: .touchUpInside)
             scrollView.addSubview(button)
@@ -184,7 +185,7 @@ extension SegementSlideSwitcherView {
                 let selectedButtonWidth = title.boundingWidth(with: innerConfig.selectedTitleFont)
                 buttonWidth = selectedButtonWidth > normalButtonWidth ? selectedButtonWidth : normalButtonWidth
             }
-            titleButton.frame = CGRect(x: offsetX, y: 0, width: buttonWidth, height: scrollView.bounds.height)
+            titleButton.frame = CGRect(x: offsetX, y: 3, width: buttonWidth, height: scrollView.bounds.height - 6)
             switch innerConfig.type {
             case .tab:
                 offsetX += buttonWidth
@@ -210,10 +211,12 @@ extension SegementSlideSwitcherView {
             let titleButton = titleButtons[selectedIndex]
             titleButton.setTitleColor(innerConfig.normalTitleColor, for: .normal)
             titleButton.titleLabel?.font = innerConfig.normalTitleFont
+            titleButton.backgroundColor = innerConfig.normalBackgroundColor
         }
         guard index >= 0, index < titleButtons.count else { return }
         let titleButton = titleButtons[index]
         titleButton.setTitleColor(innerConfig.selectedTitleColor, for: .normal)
+        titleButton.backgroundColor = innerConfig.selectedBackgroundColor
         titleButton.titleLabel?.font = innerConfig.selectedTitleFont
         if animated, indicatorView.frame != .zero {
             UIView.animate(withDuration: 0.25) {
