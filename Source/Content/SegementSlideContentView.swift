@@ -124,22 +124,22 @@ extension SegementSlideContentView {
     private func clearAllReusableViewControllers() {
         NotificationCenter.default.post(name: SegementSlideContentView.willClearAllReusableViewControllersNotification, object: nil, userInfo: nil)
         for (_, value) in viewControllers {
-            guard let childViewController = value as? UIViewController else { continue }
-            childViewController.view.removeAllConstraints()
-            childViewController.view.removeFromSuperview()
-            childViewController.removeFromParent()
+            //guard let childViewController = value as? UIViewController else { continue }
+            value.view.removeAllConstraints()
+            value.view.removeFromSuperview()
+            value.removeFromParent()
         }
         viewControllers.removeAll()
     }
     
     private func layoutViewControllers() {
         for (index, value) in viewControllers {
-            guard let childViewController = value as? UIViewController else { continue }
-            guard childViewController.view.superview != nil else { continue }
+           // guard let childViewController = value as? UIViewController else { continue }
+            guard value.view.superview != nil else { continue }
             let offsetX = CGFloat(index)*scrollView.bounds.width
-            childViewController.view.widthConstraint?.constant = scrollView.bounds.width
-            childViewController.view.heightConstraint?.constant = scrollView.bounds.height
-            childViewController.view.leadingConstraint?.constant = offsetX
+            value.view.widthConstraint?.constant = scrollView.bounds.width
+            value.view.heightConstraint?.constant = scrollView.bounds.height
+            value.view.leadingConstraint?.constant = offsetX
         }
     }
     
@@ -174,11 +174,11 @@ extension SegementSlideContentView {
             count != 0, index >= 0, index < count else {
             return
         }
-        if index != selectedIndex, let lastIndex = selectedIndex, let lastChildViewController = segementSlideContentViewController(at: lastIndex) as? UIViewController {
+        if index != selectedIndex, let lastIndex = selectedIndex, let lastChildViewController = segementSlideContentViewController(at: lastIndex) {
             // last child viewController viewWillDisappear
             lastChildViewController.beginAppearanceTransition(false, animated: animated)
         }
-        guard let childViewController = segementSlideContentViewController(at: index) as? UIViewController else { return }
+        guard let childViewController = segementSlideContentViewController(at: index) else { return }
         let isAdded = childViewController.view.superview != nil
         if !isAdded {
             // new child viewController viewDidLoad, viewWillAppear
@@ -197,7 +197,7 @@ extension SegementSlideContentView {
         childViewController.view.heightConstraint = childViewController.view.heightAnchor.constraint(equalToConstant: scrollView.bounds.height)
         childViewController.view.leadingConstraint = childViewController.view.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: offsetX)
         scrollView.setContentOffset(CGPoint(x: offsetX, y: scrollView.contentOffset.y), animated: animated)
-        if index != selectedIndex, let lastIndex = selectedIndex, let lastChildViewController = segementSlideContentViewController(at: lastIndex) as? UIViewController {
+        if index != selectedIndex, let lastIndex = selectedIndex, let lastChildViewController = segementSlideContentViewController(at: lastIndex) {
             // last child viewController viewDidDisappear
             lastChildViewController.endAppearanceTransition()
         }
